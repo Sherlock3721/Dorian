@@ -26,7 +26,7 @@ then
 read -r -p "Is PC? [y/N] " response
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
 then
-    	echo -e "${RED}Install Steam${NC}"
+    echo -e "${RED}Install Steam${NC}"
 	sudo apt-get install steam -y > /dev/null
 
 	echo -e "${RED}Install Python3${NC}"
@@ -49,6 +49,12 @@ then
 	xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
 	gsettings set org.gnome.desktop.background show-desktop-icons false
 	sudo apt-get remove nautilus -y > /dev/null
+
+	echo -e "${RED}Add Nemo addons${NC}"
+	sudo apt install mediainfo > /dev/null
+	wget https://github.com/linux-man/nemo-mediainfo-tab/releases/download/v1.0.3/nemo-mediainfo-tab_1.0.3_all.deb > /dev/null
+	sudo dpkg -i nemo-mediainfo-tab_1.0.3_all.deb > /dev/null
+	rm nemo-mediainfo-tab_1.0.3_all.deb > /dev/null
 
 	echo -e "${RED}Add new theme${NC}"
 	sudo add-apt-repository -y ppa:papirus/papirus > /dev/null
@@ -100,12 +106,11 @@ then
 	echo -e "${RED}Discord${NC}"
 	sudo snap install discord
 
+	echo -e "${RED}DroidCam${NC}"
 	sudo apt install v4l2loopback-utils v4l2loopback-dkms cmake nasm yasm pkg-config libgtk2.0-dev > /dev/null
 	sudo modprobe v4l2loopback > /dev/null
-
 	cd /tmp/
 	wget -O droidcam_latest.zip https://files.dev47apps.net/linux/droidcam_1.7.2.zip
-	# sha1sum: c5154cd85ee4da3b951777dbae156cdb5bea7176
 	unzip droidcam_latest.zip -d droidcam
 	cd droidcam 
 	sudo ./install-client > /dev/null
@@ -125,12 +130,16 @@ then
 	echo -e "${RED}Fix broken${NC}"
 	sudo apt --fix-broken install -y 
 
+	echo -e "${RED}Dynamic Wallpaper${NC}"
 	sudo apt install wallch -y > /dev/null
 
+	echo -e "${RED}Backup${NC}"
 	sudo apt install timeshift -y > /dev/null
 
+	echo -e "${RED}Sync with Phone${NC}"
 	sudo apt install kdeconnect -y > /dev/null
 	
+	echo -e "${RED}Recomended software${NC}"
 	firefox https://www.blackmagicdesign.com/products/davinciresolve/
 
 else
@@ -164,7 +173,10 @@ else
 	sudo apt install openjdk-11-jre-headless
 	sudo useradd -r -m -U -d /opt/minecraft -s /bin/bash minecraft
 	
+	
 	echo -e "${RED}sudo certbot --nginx${NC}"
+	
+	
 	
 fi
 	echo -e "${RED}Done!${NC}"
